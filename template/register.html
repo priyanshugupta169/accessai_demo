@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo CRUD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="{%static 'login_style.css' %}">
+<script src="{%static 'validation.js' %}"></script>
+</head>
+<body>
+<div class="box container">
+  <form action="register.html" onsubmit="return register_validate()" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <h2 style="text-align:center">Register</h2>
+
+      <div class="col">
+      
+        <input type="email" id="email" name="email" placeholder="Email" required>
+
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="text" id="phno" name="phno" placeholder="Contact" required>
+        <input type="password" id="pass" name="pass" placeholder="Password" required>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+        <input type="text" id="city" name="city" placeholder="City" required>
+        <input type="text" id="address" name="address" placeholder="Address" required>
+        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+        <input type="submit" value="Register">
+        <p>Already have an account? <a href="login.html">Sign in</a>.</p>
+      </div>
+      
+    </div>
+  </form>
+</div>
+{% for message in messages %}
+    <script>
+        alert("{{message}}")
+    </script>
+{% endfor %}
+
+</body>
+</html>

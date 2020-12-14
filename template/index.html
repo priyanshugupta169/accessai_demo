@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta http-equiv="cache-control" content="no-store,no-cache,must-revalidate,max-age=0">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="pragma" content="no-cache">
+<title>Accessai Demo</title>
+<link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'ionicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'venobox.css' %}" rel="stylesheet">
+  <link href="{% static 'owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'boxicons.min.css' %}" rel="stylesheet">
+  
+  
+  <link rel="stylesheet" href="{% static 'login_style.css' %}">
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+
+  
+  
+</head>
+<body>
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">All Users</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      
+      <table class="table table-bordered table-responsive-md table-striped text-center" id="table">
+        <thead>
+          <tr>
+            <th class="text-center">Email</th>
+            <th class="text-center">Username</th>
+            <th class="text-center" >Contact</th>
+            <th class="text-center">City</th>
+            <th class="text-center">Address</th>
+            <th class="text-center">Update</th>
+            <th class="text-center">Delete</th>
+          </tr>
+        </thead>
+        
+        <tbody id="t1">
+        
+        {% if users %}
+        {% for user in users %}
+        
+          <tr class="hide" id="row">
+            <td class="pt-3-half">{{user.email}}</td>
+            <td class="pt-3-half">{{user.username}}</td>
+            <td class="pt-3-half">{{user.phno}}</td>
+            <td class="pt-3-half">{{user.city}}</td>
+            <td class="pt-3-half">{{user.address}}</td>
+            
+            <td><button type="button" onclick="return updateItem('{{user.email}}','{{user.username}}','{{user.phno}}','{{user.city}}','{{user.address}}');"  
+            class="btn btn-success savebtn" style="padding: 6px 12px"  data-toggle="modal" data-target="#exampleModal">
+  						Update
+				</button>
+ 			</td>
+            <td>
+            <form action="delete" method="post">
+                {% csrf_token %}
+            <input type="hidden" name="remove_email" value="{{user.email}}">
+              <span class="table-remove"><button type="submit" onclick="return confirm('Are you Sure you want to delete?')"
+                  class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+             </form>
+            </td>
+          </tr>
+          
+          {% endfor %}
+          {% endif %}
+         
+        </tbody>
+        
+      </table>
+    </div>
+    <p style="float:right">Back to <a href="logout.html">Logout</a></p>
+    
+  </div>
+</div>
+<!-- Editable table -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+    <form action="update" method="post" style ="text-align:center">
+        {% csrf_token %}
+      <h2 style="text-align:center">Update User</h2>
+      <div style="width:80%;margin:auto;">
+        <input type="text" id="email" name="email" placeholder="Email" readonly>
+        <input type="text" id="username" name="username" placeholder="UserName" required>
+        <input type="text" id="phno" name="phno" placeholder="Contact" required>
+        <input type="text" id="city" name="city" placeholder="City" required>
+        <input type="text" id="address" name="address" placeholder="Address" required>
+        
+        <input type="submit" value="Update">
+        </div>
+  </form>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+
+{% for message in messages %}
+    <script>
+        alert("{{message}}")
+    </script>
+{% endfor %}
+
+
+  <script src="{% static 'jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'jquery.easing.min.js' %}"></script>
+  <script src="{% static 'wow.min.js' %}"></script>
+  <script src="{% static 'venobox.min.js' %}"></script>
+  <script src="{% static 'owl.carousel.min.js' %}"></script>
+  <script src="{% static 'ajax.js' %}"></script>
+  <script type="text/javascript">
+ 
+  </script>
+
+</html>
